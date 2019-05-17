@@ -8,6 +8,8 @@
 
 ## Build Setup
 
+##### 前端
+
 ``` bash
 # install dependencies
 npm install
@@ -31,3 +33,5 @@ npm run e2e
 npm test
 ```
 
+##### 后端
+后端默认端口 8081。直接用idea或者eclipse导入运行即可。
