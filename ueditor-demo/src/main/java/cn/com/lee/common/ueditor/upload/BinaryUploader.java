@@ -65,9 +65,11 @@ public class BinaryUploader {
 			logger.info("BinaryUploader physicalPath:{},savePath:{}",localSavePathPrefix,savePath);
 			InputStream is = file.getInputStream();
 			
-			//在此处调用ftp的上传图片的方法将图片上传到文件服务器
-			String filePath = physicalPath.substring(0, physicalPath.lastIndexOf("/")); //文件目录
-			String picName = physicalPath.substring(physicalPath.lastIndexOf("/")+1, physicalPath.length()); //文件名称
+			// 在此处调用ftp的上传图片的方法将图片上传到文件服务器
+			// 文件目录
+			String filePath = physicalPath.substring(0, physicalPath.lastIndexOf("/"));
+			// 文件名称
+			String picName = physicalPath.substring(physicalPath.lastIndexOf("/")+1, physicalPath.length());
 			State storageState = StorageManager.saveFileByInputStream(request, is, rootPath, filePath, picName, maxSize);
 			
 			is.close();

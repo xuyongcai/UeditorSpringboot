@@ -71,7 +71,6 @@ public class StorageManager {
 			long maxSize) {
 		
 		State state = null;
-		File tmpFile = getTmpFile();
 		byte[] dataBuf = new byte[ 2048 ];
 
 		try {
@@ -86,37 +85,30 @@ public class StorageManager {
 	        swapStream.flush();
 	        swapStream.close();
 
-			if (tmpFile.length() > maxSize) {
-				tmpFile.delete();
+	        // 限制文件大小
+			if (dataBuf.length > maxSize) {
 				return new BaseState(false, AppInfo.MAX_SIZE);
 			}
 
-			//调用DFS的存储服务上传文件
-			//:TODO
+			// TODO 调用DFS的存储服务上传文件
 			/**
 			 * 此处调用文件上传服务，并获取返回结果返回
 			 */
 			UploadResult result = BaseFileUtil.writeFileToService(dataBuf, rootPath, filePath, picName);
-//			boolean success = true;
 
-			//如果上传成功
+			// 如果上传成功
 			if (result.getIsSuccess()) {
 				state = new BaseState(true);
-				state.putInfo( "size", tmpFile.length() );
-				state.putInfo( "title", result.getFileName());//文件名
-				state.putInfo( "group", filePath.substring(filePath.lastIndexOf("/") + 1));//所属group
-				state.putInfo( "url", filePath + "/" + result.getFileName());//文件访问的url
-				tmpFile.delete();
+				state.putInfo( "size", dataBuf.length);
+                // 文件名
+				state.putInfo( "title", result.getFileName());
+                // 所属group
+				state.putInfo( "group", filePath.substring(filePath.lastIndexOf("/") + 1));
+                // 文件访问的url
+				state.putInfo( "url", filePath + "/" + result.getFileName());
 			}else{
 				state = new BaseState(false, 4);
-				tmpFile.delete();
 			}
-
-//            state = saveTmpFile(tmpFile, path);
-//            if(!state.isSuccess()){
-//                tmpFile.delete();
-//            }
-
 
             return state;
 			

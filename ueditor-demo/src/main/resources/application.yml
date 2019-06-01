@@ -1,2 +1,10 @@
 server:
   port: 8081
+
+
+demo:
+  fileUpload:
+    fileSavePathPrefix: ""
+    fileSavePath: upload/file
+    fileMaxSize: 3221225472  #上传大小限制，单位B，默认50MB，这里限制3GB
+    fileUrlPrefix: http://localhost:${server.port} #文件访问路径前缀

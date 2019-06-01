@@ -1,11 +1,19 @@
 package cn.com.lee.util;
 
+import cn.com.lee.controller.UploadController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.*;
+import java.util.UUID;
 
 /**
  * 文件处理工具类
  */
 public class BaseFileUtil {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseFileUtil.class);
 
     /**
      *  上传文件到服务器
@@ -27,10 +35,12 @@ public class BaseFileUtil {
 
             System.out.println(dir);
 
-            if(!dir.exists()){  //判断文件目录是否存在
-                dir.setWritable(true);  //设置可写权限
-                dir.mkdirs();   //创建目录
-
+            // 判断文件目录是否存在
+            if(!dir.exists()){
+                // 设置可写权限
+                dir.setWritable(true);
+                // 创建目录
+                dir.mkdirs();
             }
 
             //保存
@@ -61,19 +71,32 @@ public class BaseFileUtil {
         return new UploadResult(true, targetFile.getName());
     }
 
-    public static void main(String[] args) {
-        String filePath = "ueditor/upload/file";
+    public static UploadResult writeFileToService(MultipartFile multipartFile, String rootPath, String filePath){
+        String fileName = multipartFile.getOriginalFilename();
+        //扩展名
+        //abc.jpg
+        String fileExtensionName = fileName.substring(fileName.lastIndexOf(".")+1);
+        String uploadFileName = UUID.randomUUID().toString()+"."+fileExtensionName;
 
-        File dir = new File(filePath);
-
-        System.out.println(dir.exists());
-
-        if(!dir.exists()){  //判断文件目录是否存在
-            dir.setWritable(true);  //设置可写权限
-
-            dir.mkdirs();   //创建目录
+        File fileDir = new File(rootPath, filePath);
+        if(!fileDir.exists()){
+            // 设置可写权限
+            fileDir.setWritable(true);
+            // 创建目录
+            fileDir.mkdirs();
         }
-    }
 
+        File targetFile = new File(fileDir, uploadFileName);
+
+        try {
+            multipartFile.transferTo(targetFile);
+            // 文件上传到文件夹成功了
+        } catch (IOException e) {
+            LOGGER.error("上传文件异常", e);
+            return null;
+        }
+
+        return new UploadResult(true, targetFile.getName());
+    }
 
 }
