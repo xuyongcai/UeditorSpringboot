@@ -6831,6 +6831,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
             utils.extend(this.options, obj, true);
         },
         getOpt:function(key){
+            // console.log(this)
             return this.options[key]
         },
         /**
@@ -24501,7 +24502,7 @@ UE.plugin.register('simpleupload', function (){
             var iframe = btnIframeDoc.getElementById('edui_iframe_' + timestrap);
 
           /**
-           * 2017-09-07 改掉了ueditor源码，将本身的单文件上传的方法改为ajax上传，主要目的是为了解决跨域的问题
+           * 2017-09-07 改掉了ueditor源码，将本身的单图片上传的方法改为ajax上传，主要目的是为了解决跨域的问题
            * @author Guoqing
            */
           domUtils.on(input, 'change', function() {
@@ -24509,6 +24510,8 @@ UE.plugin.register('simpleupload', function (){
               var loadingId = 'loading_' + (+new Date()).toString(36);
               var imageActionUrl = me.getActionUrl(me.getOpt('imageActionName'));
               var allowFiles = me.getOpt('imageAllowFiles');
+
+              // console.log(allowFiles)
 
               me.focus();
               me.execCommand('inserthtml', '<img class="loadingclass" id="' + loadingId + '" src="' + me.options.themePath + me.options.theme +'/images/spacer.gif" title="' + (me.getLang('simpleupload.loading') || '') + '" >');
@@ -24525,6 +24528,7 @@ UE.plugin.register('simpleupload', function (){
                 showErrorLoader(me.getLang('simpleupload.exceedTypeError'));
                 return;
               }
+
 
               var params = utils.serializeParam(me.queryCommandValue('serverparam')) || '';
               var action = utils.formatUrl(imageActionUrl + (imageActionUrl.indexOf('?') == -1 ? '?' : '&') + params);

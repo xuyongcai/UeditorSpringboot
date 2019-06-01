@@ -607,7 +607,8 @@ i.file-preview.file-type-rar,
 i.file-preview.file-type-7z,
 i.file-preview.file-type-tar,
 i.file-preview.file-type-gz,
-i.file-preview.file-type-bz2{
+i.file-preview.file-type-bz2,
+i.file-preview.file-type-jar{
     background-position: -280px center;
 }
 i.file-preview.file-type-xls,

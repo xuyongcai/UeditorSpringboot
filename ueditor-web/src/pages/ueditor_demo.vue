@@ -1,7 +1,6 @@
 <template>
   <div id="app">
       <div>
-        <button size="primary" type="info" icon="plus" @click="getContent">获取内容</button>
         <UEditor :config=config ref="ueditor"></UEditor>
       </div>
   </div>
@@ -9,6 +8,7 @@
 
 <script>
   import UEditor from '@/components/ueditor/ueditor.vue'
+        
 
   export default{
       name: 'hello',
@@ -20,7 +20,7 @@
             //适用于邮箱
             toolbars: [
              ['source', '|', 'fullscreen', 'undo', 'redo', '|', 'bold', 'italic', 'underline',
-             '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist' , '|', 'fontfamily', 'fontsize', 'justifyleft', 'justifycenter', 'justifyright', '|', 'simpleupload', 'insertimage', 'emotion', 'attachment', '|', 'indent', 'blockquote', 'link', 'removeformat', 'formatmatch']
+             '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist' , '|', 'fontfamily', 'fontsize', 'justifyleft', 'justifycenter', 'justifyright', '|', 'simpleupload', 'insertimage', 'emotion', '|', 'indent', 'blockquote', 'link', 'removeformat', 'formatmatch']
             ],
             //适用于评论
             // toolbars: [

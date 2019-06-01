@@ -13,6 +13,7 @@
     window.onload = function () {
         initTabs();
         initButtons();
+        
     };
 
     /* 初始化tab标签 */
@@ -87,6 +88,7 @@
     function UploadFile(target) {
         this.$wrap = target.constructor == String ? $('#' + target) : $(target);
         this.init();
+        // console.log(this)
     }
     UploadFile.prototype = {
         init: function () {
@@ -99,6 +101,8 @@
         },
         /* 初始化容器 */
         initUploader: function () {
+            // console.log(this)
+
             var _this = this,
                 $ = jQuery,    // just in case. Make sure it's not an other libaray.
                 $wrap = _this.$wrap,
@@ -120,7 +124,7 @@
                 $progress = $statusBar.find('.progress').hide(),
             // 添加的文件数量
                 fileCount = 0,
-            // 添加的文件总大小
+            // 添加的文件总大小·
                 fileSize = 0,
             // 优化retina, 在retina下这个值是2
                 ratio = window.devicePixelRatio || 1,
@@ -146,6 +150,8 @@
                 actionUrl = editor.getActionUrl(editor.getOpt('fileActionName')),
                 fileMaxSize = editor.getOpt('fileMaxSize'),
                 acceptExtensions = (editor.getOpt('fileAllowFiles') || []).join('').replace(/\./g, ',').replace(/^[,]/, '');;
+                
+                // console.log(acceptExtensions)
 
             if (!WebUploader.Uploader.support()) {
                 $('#filePickerReady').after($('<div>').html(lang.errorNotSupport)).hide();
@@ -241,6 +247,7 @@
                     percentages[ file.id ] = [ file.size, 0 ];
                     file.rotation = 0;
 
+                    // console.log(file.ext.toLowerCase())
                     /* 检查文件格式 */
                     if (!file.ext || acceptExtensions.indexOf(file.ext.toLowerCase()) == -1) {
                         showError('not_allow_type');
