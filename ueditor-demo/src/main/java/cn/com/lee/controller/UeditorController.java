@@ -29,15 +29,11 @@ public class UeditorController implements ServletContextAware {
 	@ResponseBody
 	public String exec(HttpServletRequest request) throws UnsupportedEncodingException, JSONException {
 
-//		String path = UeditorController.class.getClassLoader().getResource("config.json").getPath();
-//		System.out.println(path);
-
 		return new ActionEnter(request, rootPath).exec();
 	}
 
 	@Override
 	public void setServletContext(ServletContext servletContext) {
 		rootPath = servletContext.getRealPath("/");
-//		System.out.println(rootPath);
 	}
 }
